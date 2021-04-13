@@ -1,0 +1,136 @@
+\documentclass[letterpaper,12pt,fleqn]{article}
+\usepackage[margin=64pt]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+
+\newcommand{\transpose}{^{\mbox{\tiny T}}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\hrule \vspace{0.5em}
+\noindent {\bf CFRM 410} \hfill Assignment 3 \newline \hrule
+
+\vspace{1em}
+
+Student : Dane Johnson \\
+
+Homework policy: you must show your work to receive credit for these exercises.  It is your responsibility to convince the grader that you understand how to solve each of these exercises and to explain precisely how you arrived at your solution.
+
+\vspace{1em}
+
+\begin{enumerate}
+
+\item Suppose ${\bf x} = (x_{1}, \ldots, x_{n})$ and ${\bf y} = (y_{1}, \ldots, y_{n})$ are vectors of data points, and that $a$ and $b$ are scalar constants. Define $a {\bf x} := (ax_{1}, \ldots, a x_{n})$. Express your answers in terms of $a$, $b$, $\bar{x}$, $\bar{y}$, $s_{x}$, $s_{y}$, and $\rho$.
+
+\begin{enumerate}[a)]
+\item What is the sample mean of $a {\bf x}$?
+
+$\overline{a\bf x} = \frac{1}{n} \sum_{i = 1}^{n} ax_i = \frac{a}{n} \sum_{i = 1}^{n} x_i = a\bar{\bf x}.$ (We factored the constant $a$ out of a finite sum).
+
+\item What is the sample variance of $a {\bf x}$?
+
+\begin{align*}
+s_{a{\bf x}}^2 = \frac{1}{n-1} \sum_{i=1}^{n} (ax_i - \overline{a {\bf x}})^2 &= \frac{1}{n-1} \sum_{i = 1}^{n} [a(x_i - \bar{{\bf x}})]^2 \\
+&= a^2\frac{1}{n-1} \sum_{i = 1}^{n} (x_i - \bar{{\bf x}})^2 \\
+&= a^2s_{\bf x}^2,
+\end{align*}
+where we factored the constant $a^2$ out of a finite sum.
+\item What is the sample covariance of $a {\bf x}$ and $b {\bf y}$?
+
+\begin{align*}
+cov(a {\bf x}, b {\bf y}) &= \frac{1}{n-1} \sum_{i = 1}^{n} (ax_i - a\bar{x})(by_i - b\bar{y}) \\
+&= \frac{1}{n-1} \sum_{i = 1}^{n} a(x_i - \bar{x})b(y_i - \bar{y}) \\
+&= (ab)\frac{1}{n-1} \sum_{i = 1}^{n} (x_i - \bar{x})(y_i - \bar{y}) \\
+&= (ab)cov({\bf x}, {\bf y}) = (ab)\rho(\textbf{x},\textbf{y})s_xs_y.
+\end{align*}
+
+We replaced covariance with something in terms of correlation in the last line because the covariance symbol was not allowed in the final answer by the directions of this problem.
+
+\item What is the sample correlation of $a {\bf x}$ and $b {\bf y}$?
+
+\begin{align*}
+\rho(a {\bf x}, b {\bf y}) = \frac{cov(a {\bf x}, b {\bf y})}{s_{ax}s_{by}} &= \frac{(ab)cov({\bf x}, {\bf y})}{\sqrt{s_{ax}^2}\sqrt{s_{by}^2}} \\
+&= \frac{(ab)cov({\bf x}, {\bf y})}{\sqrt{a^2s_{x}^2}\sqrt{b^2s_{y}^2}} \\
+&= \frac{(ab)cov({\bf x}, {\bf y})}{(ab)s_xs_y} \\
+&= \rho({\bf x},{\bf y}).
+\end{align*}
+
+\item What is the sample variance of the linear combination $a {\bf x} + b {\bf y}$?
+
+\begin{align*}
+s_{a {\bf x} + b {\bf y}}^2 &= \frac{1}{n-1} \sum_{i=1}^{n} (ax_i+by_i - \overline{a {\bf x} + b {\bf y}})^2 \quad\quad (*)\\
+&= \frac{1}{n-1} \sum_{i=1}^{n} (ax_i + by_i - (a\bar{{\bf x}} + b \bar{{\bf y}}))^2 \\
+&= \frac{1}{n-1} \sum_{i=1}^{n} (a(x_i - \bar{{\bf x}}) + b(y_i - \bar{{\bf y}}))^2 \\
+&= \frac{1}{n-1} \sum_{i=1}^{n} a^2(x_i - \bar{{\bf x}})^2 + 2ab(x_i - \bar{{\bf x}})(y_i - \bar{{\bf y}}) + b^2(y_i - \bar{{\bf y}})^2 \\
+&= a^2\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{{\bf x}})^2+ 2ab\frac{1}{n-1} \sum_{i=1}^{n}(x_i - \bar{{\bf x}})(y_i - \bar{{\bf y}}) + b^2\frac{1}{n-1} \sum_{i=1}^{n} (y_i - \bar{{\bf y}})^2 \\
+&= a^2s_x^2 + 2ab\,cov({\bf x}, {\bf y}) + b^2s_y^2 = a^2s_x^2 + 2ab\,\rho(\textbf{x},\textbf{y})s_xs_y+ b^2s_y^2.
+\end{align*}
+
+We replaced covariance with something in terms of correlation in the last line because the covariance symbol was not allowed in the final answer by the directions of this problem. \\
+
+$(*) \quad \overline{a {\bf x} + b {\bf y}} = \frac{1}{n}\sum_{i=1}^{n} ax_i + by_i = \frac{1}{n} \sum_{i=1}^{n} ax_i + \frac{1}{n} \sum_{i=1}^{n} by_i = a\bar{{\bf x}} + b\bar{\bf y}$. Therefore we have: $\overline{a {\bf x} + b {\bf y}} =a\bar{{\bf x}} + b\bar{\bf y}.$
+\end{enumerate}
+
+
+\vspace{2em}
+
+\item In R, create vectors \texttt{x} and \texttt{y} by running the following code snippet.
+
+\begin{verbatim}
+  thetas <- seq(0, pi, length = 181)
+  x <- cos(thetas)
+  y <- sin(thetas)
+\end{verbatim}
+
+\begin{enumerate}[a)]
+\item Produce a plot of \texttt{y} vs. \texttt{x} being careful to follow the plotting best practices.
+
+\item Describe the dependence of \texttt{y} on \texttt{x} mathematically.
+
+A general mathematical identity about the dependence of \texttt{y} and \texttt{x} is : $$sin(\theta) = cos(\theta - \frac{\pi}{2}).$$
+That is, $y = sin(\theta)$ is equal to a cosine wave with the same period but with a phase shift exactly equal to $\frac{\pi}{2}$ radians. This means that in our case that $y$ and $x$ should be orthogonal for any $\theta$ input. 
+
+\item Use R to compute the sample correlation between \texttt{x} and \texttt{y}.  Are \texttt{x} and \texttt{y} uncorrelated? Explain your reasoning.
+
+Using R we have the following input and output: \\
+\texttt{> cor(x,y)} \\
+\texttt{[1] -6.324118e-17}\\
+Using R's command \texttt{.Machine} we see that this result is apparently below R's epsilon- or roughly speaking our result is basically 0. We should conclude that \texttt{x} and \texttt{y} are uncorrelated. This is sensible since as we discussed in part(b), $sin(\theta)$ and $cos(\theta)$ are orthogonal functions on our interval (by this we mean $\int_{0}^{\pi} sin(\theta)cos(\theta) \, d\theta = 0$) and so we expect that a sample of points from this interval evaluated by these functions to produce our data vectors should be orthogonal vectors. Since covariance (and thereby correlation) between two vectors can be formulated in terms of a dot product we expect that data in orthogonal vectors be uncorrelated.
+\end{enumerate}
+
+
+\vspace{2em}
+
+\item Use closing price data for iRobot Corp (ticker IRBT) from 1 Jan 2010 through 31 Dec 2014 for the following questions.
+
+\begin{enumerate}[a)]
+\item Produce normal qq plots (see the function \texttt{qqnorm}) of daily, weekly, monthly, and quarterly continuously compounded returns. Remember the plotting best practices.
+
+Hint 1: you can add a line to a normal qq plot by calling the function \texttt{qqline} immediately after \texttt{qqnorm} (use the same arguments).
+
+Hint 2: call the function \texttt{par(mfrow = c(2, 2))} to plot all 4 plots on one device. \\
+
+
+See attached R code. \\
+
+
+\item Which plot is the closest to the Gaussian reference? Which is the furthest?
+
+Quarterly appears to be the closest to the Gaussian reference while daily seems to be the furthest. We might expect that fluctations in daily closing prices might be smoothed over time so it is reasonable that monthly data would be closer to normally distributed.
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+\end{document}

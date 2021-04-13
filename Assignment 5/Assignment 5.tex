@@ -1,0 +1,160 @@
+\documentclass[letterpaper,12pt,fleqn]{article}
+\usepackage[margin=64pt]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+
+\newcommand{\transpose}{^{\mbox{\tiny T}}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\hrule \vspace{0.5em}
+\noindent {\bf CFRM 410} \hfill Assignment 5 \newline Dane Johnson \newline \hrule
+
+\vspace{1em}
+
+Homework policy: you must show your work to receive credit for these exercises.  It is your responsibility to convince the grader that you understand how to solve each of these exercises and to explain precisely how you arrived at your solution.
+
+\vspace{1em}
+
+\begin{enumerate}
+
+\item Let $Y$ be a continuous random variable with probability density function (pdf)
+\begin{equation*}
+f_{Y}(y) = \begin{cases} c \, (1 - y)^{2} & -1 \leq y \leq 1 \\ 0 & \mbox{otherwise.} \end{cases}
+\end{equation*}
+
+\begin{enumerate}[(i)]
+\item What two conditions must a pdf satisfy? Find the value of the constant $c$ that makes $f_{Y}(y)$ a valid pdf. \\
+
+We require the conditions $f_Y(y) \geq 0 \; \forall y$ and $\int_{-\infty}^{\infty} f_Y(y)\,dy = 1$ for a valid pdf. 
+\begin{align*}
+1 = \int_{-\infty}^{\infty} f_Y(y)\,dy &= \int_{-\infty}^{\infty} c(1-y)^2\,dy \\ &= c\int_{-1}^{1} (1-2y+y^2)\,dy \\
+&= c(y - y^2 + \frac{y^3}{3}) \Big|_{y = -1}^{y = 1} \\
+&= \frac{8c}{3} \\ & \implies c = \frac{3}{8}\;.
+\end{align*}
+
+\item Compute the expected value and variance of $Y$.
+
+Expected Value :
+\begin{align*}
+E[Y] &= \int_{-\infty}^{\infty} yf_Y(y) \, dy \\ 
+&=\int_{-1}^{1} \frac{3}{8} y (1-y)^2 \, dy  \\
+&= \int_{-1}^{1} \frac{3}{8}(y-2y^2 + y^3 \, dy \\
+&= \frac{3}{8} (\frac{y^2}{2} - \frac{2y^3}{3} + \frac{y^4}{4}) \Big|_{-1}^{1} \\
+&= \frac{3}{8}(- \frac{4}{3}) = -\frac{1}{2} \;.
+\end{align*}
+Variance: (let $\mu = E[Y]$).
+\begin{align*}
+\mbox{E} \big[ \big( y - \mbox{E}(Y) \big)^{2} \big] &= \int_{-\infty}^{\infty} (y-\mu)^2f_Y(y) \, dy \\
+& = \int_{-\infty}^{\infty} (y^2 - 2\mu y + (\mu)^2)f_Y(y)\, dy \\ & = \int_{-\infty}^{\infty} y^2 f_Y(y)\,dy -2\mu \int_{-\infty}^{\infty} y f_Y(y)\, dy + (\mu)^2\int_{-\infty}^{\infty} f_Y(y)\, dy \\
+&= \big[\int_{-1}^{1} \frac{3}{8} y^2 (1-y)^2\, dy\big]- 2(\mu)^2 + (\mu)^2 \\
+& =\big[\int_{-1}^{1} \frac{3}{8} y^2 (1-y)^2\, dy\big] - (\mu)^2\\ 
+&=[\frac{3}{8} \int_{-1}^{1} (y^4 -2y^3 +y^2)\, dy] - (\mu)^2 \\
+&= \frac{3}{8}(\frac{y^5}{5} -\frac{2y^4}{4} + \frac{y^2}{2})\Big|_{-1}^{1}- (\mu)^2 \\
+&= \frac{3}{8} \frac{16}{5} - (-\frac{1}{2})^2 \\
+&= \frac{6}{5} - \frac{1}{4} \\
+&= \frac{3}{20} \;.
+\end{align*}
+
+\item Find the cumulative distribution function of $Y$ and use it to compute $P(0 < Y < \frac{1}{2})$.
+
+CORRECTION:
+
+$F_Y(y) = \int_{-\infty}^{y} f_Y(t) \, dt = \int_{-1}^{y} f_Y(t) \, dt$ (since this distribution is zero for $y<-1$).
+
+$$F_Y(y) = \int_{-\infty}^{y} f_Y(t) \, dt = \int_{-\infty}^{y} \frac{3}{8} (1-t)^2 \, dt = \frac{3}{8} \int_{-1}^{y} (1-2t +t^2) \, dt  = \frac{3}{8} (t-t^2 + \frac{t^3}{3}) \Big|_{-1}^{y}$$
+$$ F_Y(y) = \frac{1}{8} (y^3-3y^2+3y + 7) \,.$$
+
+$P(0<Y<\frac{1}{2}) =F_Y(\frac{1}{2})-F_Y(0) = \frac{3}{8}((\frac{1}{2})^3 - 3(\frac{1}{2})^2 + 3(\frac{1}{2}) + 7) - \frac{3}{8}(0-0+0+7)\frac{7}{64} \;.$
+\end{enumerate}
+
+
+\vspace{2em}
+
+\item Let $X$ be a random variable.  Use the definition of the variance
+\begin{equation*}
+\mbox{Var}(X) = \mbox{E} \big[ \big( X - \mbox{E}(X) \big)^{2} \big]
+\end{equation*}
+to derive the following properties.
+
+\vspace{0.5em}
+
+\begin{enumerate}[(a)]
+\item $\mbox{Var}(aX + b) = a^{2} \, \mbox{Var}(X)$
+
+First we have:
+\begin{align*}
+E[aX+b] &= \int_{-\infty}^{\infty} (ax+b)f_X(x)\,dx \\ &= a\int_{-\infty}^{\infty}xf_X(x) \,dx + b\int_{-\infty}^{\infty} f_X(x)\,dx \\ &= aE[x] + b.
+\end{align*}
+For notational convenience let $\mu = E[x]$. Using the above and the definition of variance we find:
+\begin{align*}
+Var(aX + b) &= E[(aX+b - E[aX+b])^2] \\
+&= E[(aX+b - a\mu - b)^2] \\
+&= E[(aX - a\mu)^2] \\
+&= \int_{-\infty}^{\infty} (ax-a\mu)^2 f_X(x) \, dx \\
+&= a^2\int_{-\infty}^{\infty} (x-\mu)^2 f_X(x) \, dx \\
+&= a^2E[(X-E(X))^2] \\
+&= a^2Var(X).
+\end{align*}
+
+\item $\mbox{Var}(X) = \mbox{E}(X^{2}) - [\mbox{E}(X)]^{2}$
+\end{enumerate}
+
+\begin{align*}
+Var(X) &= \int_{-\infty}^{\infty} (x-\mu)^2f_X(x) \,dx \\
+&= \int_{-\infty}^{\infty} (x^2 - 2x\mu + \mu^2)f_X(x) \,dx\\
+&= \int_{-\infty}^{\infty} x^2f_X(x)\,dx -2\mu\int_{-\infty}^{\infty} xf_X(x) \,dx + \mu^2\int_{-\infty}^{\infty} f_X(x) \, dx \\
+&= E[X^2] - 2\mu^2 + \mu^2 \\
+&= E[X^2] - \mu^2 \\
+&= E[X^2] - (E[X])^2.
+\end{align*}
+
+Where the last line was just a result of our notation $\mu = E[x]$.
+
+\vspace{2em}
+
+\item Let $X$ be a random variable with probability density function
+\begin{equation*}
+f_{X}(x; \mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi} \sigma} e^{- \frac{(x - \mu)^{2}}{2 \sigma^{2}}}
+\end{equation*}
+and define a new random variable
+\begin{equation*}
+Z = g(X) = \frac{X - \mu}{\sigma}
+\end{equation*}
+
+Use the change of variables formula to find the probability density function of $Z$.
+
+\begin{equation*}
+Z = g(X) = \frac{X - \mu}{\sigma} \implies X=g^{-1}(Z) = Z\sigma + \mu, \frac{d}{dz} g^{-1}(z) =\frac{d}{dz}(z\sigma + \mu).
+\end{equation*}
+
+$f_Z(z) = f_X(g^{-1}(z))|\frac{d}{dz} g^{-1}(z)| = f_X(z\sigma + \mu)|\frac{d}{dz}(z\sigma + \mu)| = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(\frac{z\sigma+\mu - \mu}{\sigma})^2}{2}}|\sigma| = \frac{1}{\sqrt{2\pi}}e^{\frac{-z^2}{2}}.$\\
+
+*Note that it follows from its definition that $\sigma \geq 0$.
+
+
+
+\item Suppose that $X$ is a continuous random variable and that $a$ and $b$ are constants.  Use the definition of the expected value
+\begin{equation*}
+\mbox{E} \big( g(X) \big) = \int_{-\infty}^{\infty} g(x) f_{X}(x) \, dx
+\end{equation*}
+to show that $\mbox{E}(aX + b) = a \mbox{E}(X) + b$.
+
+We already showed this in a previous exercise, but we reproduce the result here:
+\begin{align*}
+E[aX+b] &= \int_{-\infty}^{\infty} (ax+b)f_X(x)\,dx \\ &= a\int_{-\infty}^{\infty}xf_X(x) \,dx + b\int_{-\infty}^{\infty} f_X(x)\,dx \\ &= aE[x] + b.
+\end{align*}
+\end{enumerate}
+
+
+
+\end{document}

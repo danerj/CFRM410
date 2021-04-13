@@ -1,0 +1,59 @@
+\documentclass[letterpaper,12pt,fleqn]{article}
+\usepackage[margin=64pt]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+
+\newcommand{\transpose}{^{\mbox{\tiny T}}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\hrule \vspace{0.5em}
+\noindent {\bf CFRM 410} \hfill Assignment 9 \newline \hrule
+
+\vspace{1em}
+
+Use daily closing price data from the 2014 calendar year to compute a one-day $\alpha = 0.01$ Value at Risk for a \$25,000 investment in HMS Holdings Corp. (ticker HMSY) and provide a report supporting your calculation.  Your report should include (at least) the following:
+\\
+
+I carried out parts 1-5,7 (as well as I could) in my accompanying R file. I think it may be likely that part 4 was done incorrectly and I was unsuccessful in my attempt to to part 5.
+\begin{enumerate}
+\item A plot of the raw data (e.g., the price data during 2014).
+
+\item An exploratory analysis (graphical and numerical) of the returns.
+
+\item A normal quantile-quantile plot of the returns.
+
+\item A double exponential quantile-quantile plot of the returns.
+
+\item A $t$ quantile-quantile plot of the returns (Note: you will have to estimate the degrees of freedom parameter: use maximum likelihood).
+
+\item Based on the quantile-quantile plots, choose an appropriate family of distributions to model the returns.
+
+My best guess, based on what I have seen in my exploratory analysis in R, is that the normal distribution will be a fair enough choice for the distribution family.
+
+\item Estimate the parameters of the returns distribution using maximum likelihood.
+
+\item The computed Value at Risk.
+\end{enumerate}
+
+We made the assumption that the HMS Holdings daily returns were normally distributed. Using MLE we found that $\hat{\mu} = 0.0002259106$ and $\hat{\sigma}^2 = 0.0005870577$, with the calculations carried out in the R script. To find the one day Value at Risk for $\alpha = 0.01$ we look in a standard normal cumulative density table to find that $\Phi(-2.33) \approx 0.01$. Using the normalizing transformation, with $X$ as our daily return value, we have
+\begin{align*}
+.01 &\approx P(Z \leq -2.33)\\
+&= P(\frac{X-\hat{\mu}}{\hat{\sigma}} \leq -2.33) \\
+&= P(X \leq \hat{\mu} -2.33\hat{\sigma})\\
+&= P(X \leq -0.0562283) 
+\end{align*}
+
+Using this and the investment value of \$25,000, we report that the one-day $\alpha = 0.01$ VaR for \$25,000 invested in HMS Holdings Corporation is $\approx \$1405$.
+
+
+\end{document}

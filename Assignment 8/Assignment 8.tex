@@ -1,0 +1,141 @@
+\documentclass[letterpaper,12pt,fleqn]{article}
+\usepackage[margin=64pt]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+
+\newcommand{\transpose}{^{\mbox{\tiny T}}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\hrule \vspace{0.5em}
+\noindent {\bf CFRM 410} \hfill Assignment 8 \newline \hrule
+
+\vspace{1em}
+
+Homework policy: you must show your work to receive credit for these exercises.  It is your responsibility to convince the grader that you understand how to solve each of these exercises and to explain precisely how you arrived at your solution.
+
+\vspace{1em}
+
+\begin{enumerate}
+
+\item The double exponential distribution with location parameter $-\infty < \mu < \infty$ and scale parameter $\sigma > 0$ has probability density function
+\begin{equation*}
+f_{X}(x | \mu, \sigma) = \frac{1}{2 \sigma} e^{-\frac{|x - \mu|}{\sigma}}.
+\end{equation*}
+Let $X_{1}, \dots, X_{n} \overset{iid}{\sim} \mbox{double exponential}(\mu, \sigma)$.
+
+\begin{enumerate}[(a)]
+\item Find the maximum likelihood estimator of $\mu$.
+
+The likelihood function in this case is:
+$$L(\theta | x_1, x_2,...,x_n) = \prod_{i = 1}^{n} \frac{1}{2\sigma} e^{-\frac{|x_i- \theta |}{\sigma}} \quad .$$
+Then the log likelihood function should be:
+\begin{align*}
+l(\theta | x_1,x_2,...,x_n) &= \sum_{i=1}^{n} log \left(\frac{1}{2\sigma}e^{-\frac{|x_i- \theta |}{\sigma}} \right)\\
+&= \sum_{i=1}^{n} log(\frac{1}{2\sigma}) - \frac{|x_i-\theta|}{\sigma} \\
+&= -nlog(2\sigma) - \frac{1}{\sigma} \sum_{i=1}^{n} |x_i - \theta|
+\end{align*}
+
+Differentiating and setting the log likelihood function to $0$ we obtain: $$0 = l'(\theta | x_1,x_2,...,x_n) = \sum_{i=1}^{n} sgn|x_i - \theta | \; .$$ 
+This equation is satisfied by setting $\theta = $ median$(\{x_1,x_2,....,x_n\})$ (which is not unique if $n$ is even). 
+\item Since the mle of $\mu$ is the same for all admissible values of $\sigma$, we can use it to eliminate $\mu$ from the likelihood function.  That is, let $L(\sigma) = L(\hat{\mu}, \sigma)$.  $L(\sigma)$ is called the profile likelihood of $\sigma$. Use the profile likelihood of $\sigma$ to compute the maximum likelihood estimator of $\sigma$.
+
+\begin{align*}
+L(\sigma) = L(\hat{\mu}, \sigma) &= \prod_{i=1}^{n} \frac{1}{2\sigma} e^{-\frac{|x_i -\hat{\mu}|}{\sigma}}\\
+& \implies \\
+l(\sigma) &= -nlog(2\sigma) - \frac{1}{\sigma}\sum_{i=1}^{n} |x_i - \hat{\mu}|\\
+0&= l'(\sigma) = -n\frac{1}{\sigma} + \frac{1}{\sigma^2}\sum_{i=1}^{n} |x_i - \hat{\mu}| \\
+& \implies \\
+\sigma &= \frac{1}{n} \sum_{i=1}^{n} |x_i - \hat{\mu}|
+\end{align*}
+\end{enumerate}
+
+
+\vspace{3em}
+
+\item Let $T \sim t_{\nu}$.  The random variable
+\begin{equation*}
+X = \mu + \sigma T
+\end{equation*}
+is distributed location-scale $t$ with location parameter $\mu$, scale parameter $\sigma$, and $\nu$ degrees of freedom.  Let $LST(\mu, \sigma, \nu)$ denote the distribution of $X$.  We saw in Assignment 6 that the probability density function of $X \sim LST(\mu, \sigma, \nu)$ is
+\begin{equation*}
+f_{X}(x | \mu, \sigma, \nu) = \frac{\Gamma \left( \frac{\nu + 1}{2} \right)}{\Gamma \left( \frac{\nu}{2} \right) \sqrt{\pi \nu} \sigma} \left( 1 + \frac{1}{\nu} \left( \frac{x - \mu}{\sigma} \right)^{2} \right)^{-\frac{\nu + 1}{2}}.
+\end{equation*}
+Let $X_{1}, \ldots, X_{n} \overset{iid}{\sim} LST(\mu, \sigma, \nu)$.
+
+\begin{enumerate}[a)]
+\item What is the joint density of the $n$-dimensional random vector ${\bf X} = (X_{1}, \ldots, X_{n})$?
+
+$$f_{X_1,X_2,...,X_n}(x_1,x_2,...,x_n | \mu, \sigma, \nu) = 
+\prod_{i=1}^{n} \frac{\Gamma \left( \frac{\nu + 1}{2} \right)}{\Gamma \left( \frac{\nu}{2} \right) \sqrt{\pi \nu} \sigma} \left( 1 + \frac{1}{\nu} \left( \frac{x_i - \mu}{\sigma} \right)^{2} \right)^{-\frac{\nu + 1}{2}}$$$$=\left(\frac{\Gamma \left( \frac{\nu + 1}{2} \right)}{\Gamma \left( \frac{\nu}{2} \right) \sqrt{\pi \nu} \sigma}\right)^n\prod_{i=1}^{n} \left( 1 + \frac{1}{\nu} \left( \frac{x_i - \mu}{\sigma} \right)^{2} \right)^{-\frac{\nu + 1}{2}}$$
+
+\item What is the likelihood of the parameter vector $(\mu, \sigma, \nu)$?
+Let $\hat{\theta} = (\hat{\mu},\hat{\sigma},\hat{\nu})$.
+$$L(\hat{\theta} | x_1,x_2,...,x_n) = \left(\frac{\Gamma \left( \frac{\hat{\nu} + 1}{2} \right)}{\Gamma \left( \frac{\hat{\nu}}{2} \right) \sqrt{\pi \hat{\nu}} \hat{\sigma}}\right)^n\prod_{i=1}^{n} \left( 1 + \frac{1}{\hat{\nu}} \left( \frac{x_i - \hat{\mu}}{\hat{\sigma}} \right)^{2} \right)^{-\frac{\hat{\nu} + 1}{2}}$$
+
+\item What is the log likelihood of the parameter vector $(\mu, \sigma, \nu)$?
+
+$$l(\hat{\theta} | x_1,x_2,...,x_n) = nlog\left(\frac{\Gamma \left( \frac{\hat{\nu} + 1}{2} \right)}{\Gamma \left( \frac{\hat{\nu}}{2} \right) \sqrt{\pi \hat{\nu}} \hat{\sigma}}\right) -\frac{\hat{\nu} + 1}{2}\sum_{i=1}^{n} log\left( 1 + \frac{1}{\hat{\nu}} \left( \frac{x_i - \hat{\mu}}{\hat{\sigma}} \right)^{2} \right)$$
+
+\item Use the following code snippet
+\begin{verbatim}
+  library(quantmod)
+  getSymbols("B", from = "2012-01-01", to = "2012-12-31")
+  daily <- as.numeric(dailyReturn(Cl(B)))[-1]
+\end{verbatim}
+to compute Boeing daily returns for 2012 then use the \texttt{fitdistr} function from the \texttt{MASS} package to compute the maximum likelihood estimate of $(\mu, \sigma, \nu)$.
+
+\item Use the following code snippet
+\begin{verbatim}
+  tq <- qt(ppoints(daily), df = nu)
+\end{verbatim}
+(where \texttt{nu} is the degrees of freedom estimated above) to compute the theoretical quantiles of the $t$ distribution.  Use the \texttt{qqplot} function to make a quantile-quantile plot of the Boeing daily returns versus the theoretical quantiles of the $t$ distribution and compare it to a normal quantile-quantile plot of Boeing daily returns.
+\end{enumerate}
+
+
+\vspace{3em}
+
+\item Let $x_{1} = -0.09$, $x_{2} = 0.79$, $x_{3} = -0.67$, $x_{4} = 1.36$ and $x_{5} = 1.51$ be the observed values of a random sample from a $\mathcal{N}(\mu, \sigma^{2})$ population.  Compute a symmetric $95\%$ confidence interval for $\mu$.
+
+$$ \bar{x} = 0.58$$
+$$C.I. : \quad (0.58 - 1.96\frac{\sigma}{\sqrt{5}},0.58 + 1.96\frac{\sigma}{\sqrt{5}})$$
+
+
+\vspace{3em}
+
+\item Suppose you are asked to advise a client on an investment decision.  The two possibilities he is considering are
+
+\begin{enumerate}[i)]
+\item a risk free investment that has a daily return of $1.2 \times 10^{-5}$ ($\approx 0.3\%$ annually which is pretty generous in today's financial climate), or
+\item a new investment fund that just launched last month.
+\end{enumerate}
+
+To date, there are $21$ (assuming $252$ trading days per year $\sim21$ per month) observed daily returns $(r_{1}, \dots, r_{21})$ from the investment fund.  The sample mean of the daily returns is $\bar{r} = 2.24 \times 10^{-5}$ and the sample variance is $s^{2} = 7.646 \times 10^{-10}$.  Your client's goal is to maximize his expected return (without regard to the increase in risk).  Which decision do you advise and why?  If you use a hypothesis test, be sure to clearly state the  hypotheses (null and alternative), the test statistic, its sampling distribution, and the sidedness of the test.  If you don't use a hypothesis test, don't expect too much credit for this exercise.
+
+
+$H_0$ : The new investment has mean daily returns less than or equal to the risk free investment. \\
+
+$H_a$ : The new investment has mean daily returns greater than the risk free investment.
+
+Test Statistic : sample mean, t-distribution?\\
+
+One sided test.\\
+
+$1.2 \times 10^{-5} = \bar{r} - t_{\alpha} \frac{s}{\sqrt{n}}$ \\
+
+Solving for $t$ we find $t \approx 1.7326$. Using a t-distribution table we conclude that the mean daily returns of the new investment are greater than of the risk free investment at the 95\% confidence level. 
+
+
+
+\end{enumerate}
+
+\end{document}

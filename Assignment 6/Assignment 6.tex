@@ -1,0 +1,214 @@
+\documentclass[letterpaper,12pt,fleqn]{article}
+\usepackage[margin=64pt]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+
+\newcommand{\transpose}{^{\mbox{\tiny T}}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\hrule \vspace{0.5em}
+\noindent {\bf CFRM 410} \hfill Assignment 6 \newline Dane Johnson \newline \hrule
+
+\vspace{1em}
+
+Homework policy: you must show your work to receive credit for these exercises.  It is your responsibility to convince the grader that you understand how to solve each of these exercises and to explain precisely how you arrived at your solution.
+
+\vspace{1em}
+
+\begin{enumerate}
+\item Four popular utility functions
+
+\begin{tabular}{lll}
+\textbf{Exponential} & $U(x) = -e^{-ax}$ & $a > 0$\\
+\textbf{Logarithmic} & $U(x) = \log(x)$ & \\
+\textbf{Power} & $U(x) = b x^{b}$ & $b \in (0, 1)$ \\
+\textbf{Quadratic} & $U(x) = x - bx^{2}$ \hspace{2em} & $b > 0$
+\end{tabular}
+
+\vspace{1em}
+
+\begin{enumerate}[a)]
+\item Suppose $c$, $d$, and $f$ are positive constants. Show that the utility function
+\begin{equation*}
+V(x) = -c x^{2} + d x + f
+\end{equation*}
+is equivalent (according to the definition of equivalent for utility functions) to Quadratic utility.
+
+Taking $b = \frac{c}{d} > 0 $ we have a quadratic utility function $U(x) = x - bx^2 = x - \frac{c}{d}x^2$. The utility function $V(x)$ is equivalent to $U(x)$ if $V(x) = k_1U(x) + k_2, \; k_1 > 0$. Note that $dU(x) + f = d(x-\frac{c}{d}x^2) + f = dx - cx^2 + f = V(x)$. Therefore $V(x) \sim U(x)$.
+
+\item Suppose an investor is trying to decide between two choices. The first choice is to invest in Treasury bills which will produce an end-of-period wealth of \$6 million. The second choice has three possible outcomes: \$10 million with probability 0.2, \$5 million with probability 0.4, and \$1 million with probability 0.4. If the investor's utility function is Power utility with $b = 0.5$, which choice will he take?
+
+We assume that the investor seeks to maximize end-of-period expected utility, so we calculate this for each choice. The utility function we use is $U(x) = 0.5x^{0.5}$. Also throughout we use the common convention of measuring utility in units called utils.\\
+
+Treasury Bills: 
+$$ E[U(W)] = (1)0.5(6)^{0.5} \approx 1.225 \, million \, utils.$$
+
+Alternative Investment:
+$$ E[U(W)] = 0.5[0.2\sqrt{10} + 0.4\sqrt{5} + 0.4\sqrt{1}] \approx 0.9634 \, million \, utils.$$
+
+The investor will choice the Treasury bill investment since it has a higher end-of-period expected utility.
+
+\item Repeat part b) supposing that the investor's utility function is Logarithmic utility.
+\end{enumerate}
+
+We evaluate the same choices but now assume the investor makes decisions based on the utility function $U(x) = log(x)$.
+
+Treasury Bills: 
+$$ E[U(W)] = (1)log(6) \approx 1.792 \, million \, utils.$$
+
+Alternative Investment:
+$$ E[U(W)] = 0.2log(10) + 0.4log(5) + 0.4log(1) \approx 1.104 \, million \, utils.$$
+
+The investor will choice the Treasury bill investment since it has a higher end-of-period expected utility.
+
+\vspace{2em}
+
+
+\item A job candidate with a salary utility function $U(w) = \sqrt{w}$ receives a job offer that pays \$90,000 plus a bonus.  The bonus will be \$0, \$70,000, \$160,000, or \$270,000, each with equal probability.
+
+\begin{enumerate}[a)]
+\item What is the expected value of this job offer?
+
+$$E[W] = \frac{1}{4}[\$90,000 + \$160,000 + \$250,000 + \$360,000] = \$215,000.$$
+
+\item What is the expected utility of this job offer?
+
+$$E[U(W)] = \frac{1}{4}[\sqrt{90,000}+\sqrt{160,000} + \sqrt{250,000} + \sqrt{360,000}] = 450 \, utils.$$
+
+\item Is the certainty equivalent of this job offer greater than, less than, or equal to the expected value of the job offer?
+
+To solve for the certainty equivalent, we solve $U(w_c) = E[U(W)]$ for $w_c$.
+
+$$ \sqrt{w_c} = 450 \implies w_c = \$ 202,500 \leq \$215,00 = E[W].$$
+
+The answer we found agrees with the idea that a $U(w) = \sqrt{w}$ corresponds to a risk averse investor since $w_c \leq E[W]$.
+\end{enumerate}
+
+
+\newpage
+
+\item The $t$ distribution can be generalized to a three parameter location-scale family by introducing a location parameter $\mu$ and a scale parameter $\sigma > 0$.  Let
+\begin{equation*}
+T \sim t_{\nu}
+\end{equation*}
+be a random variable distributed $t$ with $\nu$ degrees of freedom and let
+\begin{equation*}
+X = \mu + \sigma T.
+\end{equation*}
+
+\begin{enumerate}[a)]
+\item Use the change of variables formula to find the pdf of $X$.
+
+$$f_X(x|v,\sigma,\mu) = \frac{\Gamma(\frac{v+1}{2})}{\Gamma(\frac{v}{2})}\frac{1}{\sqrt{v\pi \sigma^2}}\frac{1}{(1+\frac{1}{v}(\frac{x-\mu}{\sigma})^2)^{(v+1)/2}}$$
+
+\item Compute the expected value and the variance of $X$.
+
+Hint: if you find yourself using an integral, you're doing it wrong. \\
+
+Using $E[T] = 0$ from the lecture notes and the linearity of expected value:
+
+$$E[X] = E[\mu + \sigma T] = \mu + \sigma E[T] = \mu + \sigma (0) = \mu, \quad v > 1.$$
+
+Using $\text{Var}[aY+b] = a^2\text{Var}[Y]$ for a random variable $Y$ and constants $a,b$, along with $\text{Var}[T] = \frac{v}{v-2}$ from the lecture notes:
+
+$$\text{Var}[X] = \text{Var}[\mu + \sigma T] = \sigma^2\text{Var}[T] = \sigma^2 \frac{v}{v-2}, \quad v >2.$$
+\item Is $\sigma$ the standard deviation of $X$?  If not, what is the standard deviation of $X$?\\
+
+No- $\sigma$ does not represent the standard deviation of $X$, $\sigma$ sets the scaling of the overall distribution. The standard deviation of $X$ is not known.
+\end{enumerate}
+
+
+\vspace{2em}
+
+\item The \emph{exponential} distribution is most commonly used to model waiting times. We however are going to use it as the building block for a distribution that has heavier tails than the normal distribution (and is thus potentially appropriate for modeling returns data).  The probability density function for the exponential distribution with \emph{rate} parameter $\lambda > 0$ is
+\begin{equation*}
+f_{X}(x) = \begin{cases} \lambda e^{-\lambda x} & x \geq 0 \\ 0 & x < 0. \end{cases}
+\end{equation*}
+
+
+\begin{enumerate}[a)]
+\item Choose a value of $\lambda$ and plot the exponential pdf.
+\end{enumerate}
+
+See other attached document.
+
+Steps to create the location-scale \emph{double exponential} distribution:
+
+\begin{enumerate}[a)]
+\setcounter{enumii}{1}
+\item Use the absolute value $|x|$ in place of $x$ in the exponential pdf to change the support to all real numbers (this effectively reflects the pdf across the $y$-axis, hence the name double). The pdf for the \emph{standard} double exponential ($\lambda > 0$) is
+\begin{equation*}
+f_{X}(x) = c \, \lambda e^{-\lambda |x|}
+\end{equation*}
+where $c$ is the normalization constant. Find the value of $c$ that makes the double exponential pdf a valid density function.
+
+We know that $c \geq 0$ so that $f_X(x) \geq 0 \, \forall x$. To find out exactly what $c$ must be we integrate $f_X(x)$:
+
+\begin{align*}
+1 &= \int_{-\infty}^{\infty} c \lambda e^{-\lambda |x|} \, dx \\ &= c\left[\int_{-\infty}^{0} \lambda e^{\lambda x} \, dx + \int_{0}^{\infty} \lambda e^{-\lambda x} \, dx\right] \\
+&= c\left[ \lim_{m\to\infty} \left( e^{\lambda x} \rvert_{-m}^{0} - e^{-\lambda x} \rvert_{0}^{m} \right) \right] \\
+&= c\left[ \lim_{m\to\infty} \left( e^{\lambda 0} - e^{-\lambda m} - e^{-\lambda m} + e^{\lambda 0} \right) \right] \\ &= c(2) \\
+& \implies c = \frac{1}{2} ,\; f_X(x) = \frac{1}{2} \lambda e^{-\lambda |x|}\;.
+\end{align*}
+
+\item Compute the expected value and the variance of the standard double exponential distribution.
+
+To help with computations, we first show that $\int_{0}^{\infty} \lambda e^{-\lambda x} \,dx = 1, \int_{0}^{\infty} x\lambda e^{-\lambda x} \,dx = \frac{1}{\lambda}$.
+
+$$\int_{0}^{\infty} \lambda e^{-\lambda x} \, dx = \lim_{m\to\infty} - e^{-m\lambda} + e^0 = 0 + 1 = 1.$$
+
+$$\int_{0}^{\infty} x\lambda e^{-\lambda x} \, dx = \lim_{m\to\infty} -xe^{-\lambda x} \rvert_{0}^{m} +\frac{1}{\lambda} \int_{0}^{\infty} \lambda e^{-\lambda x} \, dx = (0+0)-\frac{1}{\lambda} (1) = \frac{1}{\lambda}.$$
+
+Using these results we have:
+
+\begin{align*}
+E[X] &= \int_{-\infty}^{\infty} \frac{1}{2} x\lambda e^{-\lambda |x|} \, dx \\
+&=\frac{1}{2}\left[\int_{-\infty}^{0} x\lambda e^{\lambda x} \, dx + \int_{0}^{\infty} x\lambda e^{-\lambda x} \, dx\right] \\
+&=\frac{1}{2}\left[\int_{\infty}^{0} (-w)\lambda e^{-\lambda w} \, (-dw) + \int_{0}^{\infty} x\lambda e^{-\lambda x} \, dx\right] \quad (\text{using substitution } w = -x ) \\
+&= \frac{1}{2}\left[-\int_{0}^{\infty} w\lambda e^{-\lambda w} \, dw +\int_{0}^{\infty} x\lambda e^{-\lambda x} \, dx\right] \\
+&= \frac{1}{2} \left[ -\frac{1}{\lambda} + \frac{1}{\lambda} \right] \\
+&= 0.
+\end{align*}
+
+We knew that the result should be 0 since $\frac{1}{2} x \lambda e^{-\lambda |x|}$ is an odd function, but this shows the actual computation. \\
+
+Next the variance:
+
+\begin{align*}
+E[(X-E[X])^2] &= E[X^2] - (E[X])^2\\ &= E[X^2] \\
+&= \int_{-\infty}^{\infty} \frac{1}{2} x^2 \lambda e^{-\lambda |x|} \, dx \quad (\text{note that the integrand is even})\\
+&= \frac{1}{2}\left[2\int_{0}^{\infty}x^2\lambda e^{-\lambda x} \, dx \right] \\
+&= \lim_{m\to\infty} -x^2e^{-\lambda x} \rvert_{0}^{m} + 2\int_{0}^{\infty} xe^{-\lambda x} \, dx \\
+&= 0 + 0 + \frac{2}{\lambda}\int_{0}^{\infty} \lambda xe^{-\lambda x} \, dx \\
+&= \frac{2}{\lambda} \frac{1}{\lambda} \\
+&= \frac{2}{\lambda^2} \,.
+\end{align*}
+
+\item Let $\mu$ be a location parameter and $\sigma > 0$ a scale parameter and define $Y = \mu + \sigma X$.  Use the change of variables formula to find the pdf of $Y$.
+
+$$f_Y(y) = f_X(g^{-1}(y))|\frac{d}{dy}g^{-1}(y)|=f_X(\frac{y-\mu}{\sigma})\frac{1}{\sigma} = \frac{\lambda}{2\sigma} e^{-\lambda |\frac{y-\mu}{\sigma}|}.$$
+
+\item Compute the expected value and the variance of $Y$.
+
+$$E[Y] = E[\mu + \sigma X] = \sigma E[X] = 0.$$
+$$\text{Var}[Y] = \text{Var}[\mu + \sigma X] = \sigma^2 \text{Var}[X] = \frac{2\sigma^2}{\lambda^2}.$$
+
+\item Is $\sigma$ the standard deviation of $Y$?  If not, what is the standard deviation of $Y$?
+
+No - the standard deviation is $\frac{\sqrt{2}\sigma}{\lambda}$.
+\end{enumerate}
+
+\end{enumerate}
+
+
+\end{document}

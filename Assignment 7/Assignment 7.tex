@@ -1,0 +1,177 @@
+\documentclass[letterpaper,12pt,fleqn]{article}
+\usepackage[margin=64pt]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+
+\newcommand{\transpose}{^{\mbox{\tiny T}}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\hrule \vspace{0.5em}
+\noindent {\bf CFRM 410} \hfill Assignment 7 \newline \hrule
+
+\vspace{1em}
+
+Homework policy: you must show your work to receive credit for these exercises.  It is your responsibility to convince the grader that you understand how to solve each of these exercises and to explain precisely how you arrived at your solution.
+
+\vspace{1em}
+
+\begin{enumerate}
+\item Suppose that an investor holds a \$10,000 position in an asset whose daily arithmetic returns distribution (measured in percent) is standard normal.  Compute the $1$-day $\alpha=0.05$ Value-at-Risk.
+\\
+
+If the returns distribution measured in percents is standard normal, we can use a cumulative distribution table to find that $\Phi(-1.65) \approx 0.05$, so that the 1-day VaR$(0.05) \approx (0.0165)(\$10,000) = \$165$. The losses will be \$165 or more with probability 0.05. 
+
+\vspace{2em}
+
+\item Suppose that an investor holds a \$10,000 position in an asset whose daily arithmetic returns distribution (measured in percent) is $t$ with $5$ degrees of freedom.  Compute the $1$-day $\alpha=0.05$ Value-at-Risk.
+\\
+
+Using a $t$ distribution calculator, we find that $0.05=P(X<-2.015)$. Using this we have the 1-day VaR$(0.05) = (0.02015)(\$10,000) = \$201.5$
+
+\vspace{2em}
+
+\item Use the definition $\mbox{Var}(U) = \mathbb{E}(U^{2}) - \big[ \mathbb{E}(U) \big]^2$ to show that
+\begin{equation*}
+\mbox{Var}(aX + bY + c) = a^{2} \, \mbox{Var}(X) + b^{2} \, \mbox{Var}(Y) + 2ab \, \mbox{Cov}(X, Y)
+\end{equation*}
+where $a$, $b$, and $c$ are constants.
+\\
+
+\begin{align*}
+&\mbox{Var}(aX + bY + c) \\&= \mathbb{E}((aX+bY+c)^{2}) - \big[ \mathbb{E}(aX+bY+c) \big]^2 \\
+&= \mathbb{E}(a^2X^2+2abXY + 2acX+b^2Y^2+2bcY+c^2) - \big[\mathbb{E}(aX)+\mathbb{E}(bY)+\mathbb{E}(c) \big]^2\\
+&= a^2\mathbb{E}(X^2) + 2ab\mathbb{E}(XY)+2ac\mathbb{E}(X) +b^2\mathbb{E}(Y^2) + 2bc\mathbb{E}(Y) + c^2- \big[a\mathbb{E}(X)+b\mathbb{E}(Y)+c \big]^2\\
+&=a^2\mathbb{E}(X^2) + 2ab\mathbb{E}(XY)+2ac\mathbb{E}(X) +b^2\mathbb{E}(Y^2) + 2bc\mathbb{E}(Y) + c^2 \\
+& \quad\quad\quad - a^2[\mathbb{E}(X)]^2 - 2ab\mathbb{E}(X)\mathbb{E}(Y) - 2ac\mathbb{E}(X) -b^2[\mathbb{E}(Y)]^2-2bc\mathbb{E}(Y) - c^2 \\
+&= a^2(\mathbb{E}(X^2)-[\mathbb{E}(X)]^2) + b^2(\mathbb{E}(Y^2)-[\mathbb{E}(Y)]^2) + 2ab(\mathbb{E}(XY) -\mathbb{E}(X)\mathbb{E}(Y)) \\
+&= a^{2} \, \mbox{Var}(X) + b^{2} \, \mbox{Var}(Y) + 2ab \, \mbox{Cov}(X, Y).
+\end{align*}
+
+The identity $\mbox{Cov}(X, Y) =\mathbb{E}(XY) -\mathbb{E}(X)\mathbb{E}(Y)$ was used in the last step, along with the identity given in the problem statement.
+
+
+\vspace{2em}
+
+\item Suppose that the bivariate random vector $(R_{1}, R_{2})$ represents the yearly rate of return on assets 1 and 2. Further, suppose that $\mathbb{E}(R_{1}) = 0.04$, $\mathbb{E}(R_{2}) = 0.06$, $\mbox{SD}(R_{1}) = \sigma_{1} = 0.15$, $\mbox{SD}(R_{2}) = \sigma_{2} = 0.30$, and $\mbox{Cor}(R_{1}, R_{2}) = \rho_{12} = 0.6$.  An investor creates a portfolio by putting \$500 in asset 1 and \$500 in asset 2.
+
+\begin{enumerate}[a)]
+\item Express the portfolio's arithmetic return $R_{P}$ in terms of $R_{1}$ and~$R_{2}$.
+
+$R_P = \frac{1}{2} R_1 + \frac{1}{2} R_2$
+
+\item Compute $\mathbb{E}(R_{P})$.
+
+$\mathbb{E} (R_P) = \frac{1}{2}\mathbb{E} (R_1) + \frac{1}{2} \mathbb{E} (R_2) = 0.05\;$
+
+
+\item Compute $\mbox{Var}(R_{P})$.
+
+CORRECTION : THERE WAS A COMPUTATION ERROR
+\begin{align*}
+\mbox{Var}(R_{P}) &= \mbox{Var}(\frac{1}{2} R_{1}+\frac{1}{2} R_{2}) \\
+&= \frac{1}{4}\mbox{Var}(R_1) + \frac{1}{4} \mbox{Var} (R_2) + 2\frac{1}{4} \mbox{Cov} (X,Y) \\
+&= \frac{1}{4}\sigma_1^2 + \frac{1}{4}\sigma_2^2 + \frac{1}{2} \sigma_1\sigma_2\mbox{Cor}(R_1,R_2) \\
+&= \frac{1}{4}(0.15)^2 + \frac{1}{4}(0.3)^2 + \frac{1}{2}(0.15)(0.3)(0.6) \\
+&= 0.0416
+\end{align*}
+
+\end{enumerate}
+
+\vspace{1em}
+
+Next, suppose the investor decides to invest \$$x$ in asset 1 and \$$(1000 - x)$ in asset 2.
+
+
+\begin{enumerate}[a)]
+\setcounter{enumii}{3}
+\item Express the portfolio's arithmetic return $R_{MV}$ in terms of $R_{1}$, $R_{2}$, and $x$.
+
+$R_{MV} = \frac{x}{1000} R_1 + \frac{1000-x}{1000} R_2$
+
+\item Compute $\mathbb{E}(R_{MV})$.
+
+$\mathbb{E}(R_{MV}) = \frac{x}{1000}\mathbb{E}(R_1) + \frac{1000-x}{1000}\mathbb{E}(R_2) = \frac{0.04x + 60-0.06x}{1000} =\frac{60-0.02x}{1000}$
+
+\item Compute $\mbox{Var}(R_{MV})$.
+\begin{align*}
+&\mbox{Var}(R_{MV}) = \frac{x^2}{1000^2}\sigma_1^2+\frac{(1000-x)^2}{1000^2}\sigma_2^2 + 2\frac{1000x-x^2}{1000^2}\mbox{Cov}(R_1,R_2) \\
+&= \frac{1}{1000^2}[\sigma_1^2x^2+\sigma_2^2(1000^2-2000x+x^2) + (2000x-2x^2)\mbox{Cov}(R_1,R_2)] \\
+&= \frac{1}{1000^2}[(\sigma_1^2+\sigma_2^2-2\sigma_1\sigma_2\mbox{Cor}(R_1,R_2))x^2 + (2000\sigma_1\sigma_2\mbox{Cor}(R_1,R_2) - 2000\sigma_2^2)x + \sigma_2^2(1000^2)] \\
+&= \frac{1}{1000^2}[0.0585x^2 -126x + 90000]
+\end{align*}
+
+\item How much should the investor put into each asset to minimize the risk (i.e., variance) of the portfolio?
+\end{enumerate}
+
+$0 = (2)(0.0585)x - 126 \implies x = 1076.9$ \\
+
+This means the investor should put \$1000 in the first asset and \$0 in the second. This answer seems incorrect but I cannot find my error.
+
+\item Let $(X, Y)$ be a bivariate random vector uniformly distributed on the region $R$, a diamond with corners at $(\pm1, 0)$, $(0, \pm1)$.
+
+
+
+\vspace{1em}
+
+\begin{enumerate}[(a)]
+\item What are $S_X$, $S_Y$, and $S_{XY}$?
+
+$S_X = [-1,1]$, $S_Y = [-1,1]$, $S_{XY} = \{(x,y) : |x|+|y| \leq 1\}$
+
+\item What is the joint probability density function (pdf) $f_{XY}(x, y)$ of $(X, Y)$?
+
+$f_{XY} (x,y)=c$ for some constant $c$. Use integration over $R$ to determine $c\,$:
+$$ 1 = 2\int_{0}^{1} \int_{-1+x}^{1-x} c \, dydx = 2c\int_{0}^{1} [(1-x)-(-1+x)] \, dx = 4c \int_{0}^{1} (1-x) \, dx = 4c[1-\frac{1}{2}] = 2c$$ $$\implies c = \frac{1}{2}$$
+
+We could have also used the fact that $R$ is a square to avoid integration, but followed the more general procedure in this case. \\
+
+\item What are the marginal probability density functions $f_{X}(x)$ and $f_{Y}(y)$?
+
+$$f_{X}(x) = \int_{-1+|x|}^{1-|x|} \frac{1}{2} \, dy=  \frac{1}{2} [(1-|x|)-(-1+|x|)] = 1-|x| \,.$$
+
+$$f_{Y}(y) = \int_{-1+|y|}^{1-|y|} \frac{1}{2} \, dx=  \frac{1}{2} [(1-|y|)-(-1+|y|)] = 1-|y| \,.$$
+
+\item What is the conditional probability density function $f_{Y|X}(y | X = x)$?
+
+$$f_{Y|X}(y | X = x) = \frac{f_{X,Y}(x,y)}{f_X(x)} = \frac{\frac{1}{2}}{1-|x|} = \frac{1}{2-2|x|}, \quad
+-1+|x| \leq y \leq 1 - |x| $$
+
+\item Are $X$ and $Y$ independent? Explain your answer.
+
+No. For example $f_{X,Y} (\frac{3}{4},\frac{3}{4})=0$ while $f_X(\frac{3}{4})f_Y(\frac{3}{4}) = (\frac{1}{4})^2 \neq 0$.
+
+\item Compute $\mbox{E}(X)$, $\mbox{E}(Y)$, $\mbox{Var}(X)$, $\mbox{Var}(Y)$, $\mbox{Cov}(X, Y)$. 
+
+$$\mbox{E}(X) = \int_{-1}^{0} \int_{-1-x}^{1+x} \frac{1}{2}x \, dydx + \int_{0}^{1} \int_{-1+x}^{1-x} \frac{1}{2}x \, dydx=\int_{-1}^{0} (x+x^2) \, dx + \int_{0}^{1} (x-x^2) \, dx = -\frac{1}{6} + \frac{1}{6} = 0 \;.$$
+
+$$\mbox{E}(Y) = \int_{-1}^{0} \int_{-1-y}^{1+y} \frac{1}{2}y \, dxdy + \int_{0}^{1} \int_{-1+y}^{1-y} \frac{1}{2}y \, dxdy=\int_{-1}^{0} (y+y^2) \, dy + \int_{0}^{1} (y-y^2) \, dy = -\frac{1}{6} + \frac{1}{6} = 0 \;.$$
+\begin{align*}\mbox{Var}(X) &= \mbox{E}(X^2) - [\mbox{E}(X)]^2 \\&= \mbox{E}(X^2) \\ & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} x^2f_{X,Y} \, dxdy \\&= \frac{1}{2}\int_{-1}^{0}\int_{-1-x}^{1+x} x^2 \, dydx + \frac{1}{2} \int_{0}^{1} \int_{-1+x}^{1-x} x^2 \, dydx \\
+&= \int_{-1}^{0} x^2(1+x) \, dx + \int_{0}^{1} x^2(1-x) \,dx \\ &= \frac{1}{12} + \frac{1}{12} = \frac{1}{6} \;.
+\end{align*}
+
+\begin{align*}\mbox{Var}(Y) &= \mbox{E}(Y^2) - [\mbox{E}(Y)]^2 \\&= \mbox{E}(Y^2) \\ & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} y^2f_{X,Y} \, dxdy \\&= \frac{1}{2}\int_{-1}^{0}\int_{-1-y}^{1+y} y^2 \, dxdy + \frac{1}{2} \int_{0}^{1} \int_{-1+y}^{1-y} y^2 \, dxdy \\
+&= \int_{-1}^{0} y^2(1+y) \, dy + \int_{0}^{1} y^2(1-y) \,dy \\ &= \frac{1}{12} + \frac{1}{12} = \frac{1}{6} \;.
+\end{align*}
+
+\begin{align*}
+\mbox{Cov}(X,Y) &= \mbox{E}[(X-\mbox{E}(X))(Y-\mbox{E}(Y))] \\&= \mbox{E}(XY) - \mbox{E}(X)\mbox{E}(Y) \\
+&= \mbox{E} (XY) - (0)(0) \\
+&= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} xyf_{X,Y}(x,y) \, dxdy \\
+&= \frac{1}{2} \int_{-1}^{0} \int_{-1-x}^{1+x} xy \, dydx + \frac{1}{2} \int_{0}^{1} \int_{-1+x}^{1-x} xy \, dydx \\
+&= \frac{1}{2} \int_{-1}^{0} 0 \, dx + \frac{1}{2} \int_{0}^{1} 0 \, dx \\ &= 0 \;.
+\end{align*}
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
